@@ -1,0 +1,18 @@
+.btn {
+    border-radius: 0.2em;
+    font-family: Arial;
+
+    color:var(--accent);
+    font-size: 1em;
+    
+    padding: 0.5em 1em 0.5em 1em;
+    text-decoration: none;
+    min-width: 1em;
+    vertical-align: middle;
+}
+
+.btn:hover {
+    background: var(--secondary);
+    text-decoration: none;
+    color:white
+}

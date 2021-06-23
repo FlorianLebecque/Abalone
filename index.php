@@ -1,22 +1,24 @@
 <?php
      header('Content-Type: text/html; charset=utf-8');
      include_once("backend/conttroller.php");     //controller\conttroller.php
-     $crtl = Controller::GetCrtl();
-     $crtl->Action();
+     $ctrl = Controller::GetCrtl();
+     $ctrl->Action();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
     
+    <?php include("html/head.html"); ?>
+
     <script>
         <?php
-            if($crtl->user != null){
-                echo "let user = '".$crtl->user->name."#".$crtl->user->id."'";
+            if($ctrl->user != null){
+                echo "let current_user = '".$ctrl->user->name."#".$ctrl->user->id."';";
             }
         ?>
-    </script>
+        let jsCtrl = new controller();
 
-    <?php include("html/head.html"); ?>
+    </script>
 
     <body>
         <header>
@@ -25,7 +27,7 @@
 
         <div class="container main">
             <?php
-                $crtl->Display();
+                $ctrl->Display();
             ?>
         </div>
                     

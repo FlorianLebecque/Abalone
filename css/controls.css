@@ -31,8 +31,6 @@
     font-size: 1em;
 }
 
-
-
 .inpt:hover {
     border-bottom: 0.15em solid var(--secondary);
     text-decoration: none;
@@ -41,6 +39,8 @@
 }
 
 table{
+
+    color: var(--accent) !important;
     background: linear-gradient(
         to right, 
         var(--accent), 

@@ -3,9 +3,11 @@ jsCtrl.GetRoomsList();
 
 function gotMyList(params){
 
+    console.log(typeof(params))
+
     let ht = "";
 
-    params.forEach(element => {
+    Object.values(params).forEach( element=> {
 
         let row = "<tr>"
 

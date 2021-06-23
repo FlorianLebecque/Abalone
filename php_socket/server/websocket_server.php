@@ -28,9 +28,9 @@ class AbaloneServer implements MessageComponentInterface {
 		$room2 = new room(new user("GHE"),"");
 
 		$this->Rooms = array(
-			$room0,
-			$room1,
-			$room2,
+			$room0->id => $room0,
+			$room1->id => $room1,
+			$room2->id => $room2,
 		);
 
 		echo "Socket created \n";

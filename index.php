@@ -1,12 +1,21 @@
 <?php
      header('Content-Type: text/html; charset=utf-8');
-     include_once("controller/conttroller.php");     //controller\conttroller.php
+     include_once("backend/conttroller.php");     //controller\conttroller.php
      $crtl = Controller::GetCrtl();
+     $crtl->Action();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
     
+    <script>
+        <?php
+            if($crtl->user != null){
+                echo "let user = '".$crtl->user->name."#".$crtl->user->id."'";
+            }
+        ?>
+    </script>
+
     <?php include("html/head.html"); ?>
 
     <body>
@@ -14,7 +23,7 @@
             <?php include("header.php"); ?>
         </header>
 
-        <div class="main">
+        <div class="container main">
             <?php
                 $crtl->Display();
             ?>

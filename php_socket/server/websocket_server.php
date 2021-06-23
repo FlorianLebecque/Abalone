@@ -16,14 +16,10 @@ class Chat implements MessageComponentInterface {
 	protected $clients;
 	protected $users;
 
-	public $BDD;
 
 	public function __construct() {
 		$this->clients = new \SplObjectStorage;
-		$this->BDD = bdd::getBDD();
-		echo "connected to BDD \n";
 		echo "Socket created \n";
-		
 	}
 
 	public function onOpen(ConnectionInterface $conn) {
@@ -50,7 +46,7 @@ class Chat implements MessageComponentInterface {
 				$array_msg = preg_split ('/-/',$chat_msg,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
 
 				$t0 = microtime(True);
-				$response_from = QueryHandler::getResult($array_msg[0],$array_msg[1],$this->BDD)."-".$array_msg[2];
+				
 				$t1 = microtime(True);
 
 				echo $array_msg[0] ." ) ".($t1-$t0)."s\n";
@@ -66,9 +62,15 @@ class Chat implements MessageComponentInterface {
 		$conn->close();
 	}
 }
+
+	//create the server object
 $server = IoServer::factory(
 	new HttpServer(new WsServer(new Chat())),
 	5002
 );
+
+	//start the websocket
 $server->run();
+
+
 ?>

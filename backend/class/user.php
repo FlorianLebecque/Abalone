@@ -4,9 +4,6 @@
             $this->name = $name_;
             $this->id = time();
         }
-
-
-
     }
 
 ?>

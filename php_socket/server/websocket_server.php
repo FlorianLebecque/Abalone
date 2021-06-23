@@ -8,13 +8,14 @@ use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 require_once '../vendor/autoload.php';
 
-include_once '../../queryHandler.php';
-include_once '../../backend/inc/database.php';
 
 
-class Chat implements MessageComponentInterface {
+
+class AbaloneServer implements MessageComponentInterface {
 	protected $clients;
 	protected $users;
+
+	protected $Rooms = [];
 
 
 	public function __construct() {
@@ -35,15 +36,35 @@ class Chat implements MessageComponentInterface {
 	}
 
 	public function onMessage(ConnectionInterface $from,  $data) {
-		$from_id = $from->resourceId;
+		//$from_id = $from->resourceId;
+		
 		$data = json_decode($data);
-		$type = $data->type;
-		switch ($type) {
-			case 'chat':
-				$user_id = $data->user_id;
-				$chat_msg = $data->chat_msg;
+		
+		print_r($data);
+		
+		switch ($data->type) {
 
-				$array_msg = preg_split ('/-/',$chat_msg,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
+			case 'request':
+
+				if($data->msg == "roomlist"){
+					$from->send(
+						json_encode(
+							array(
+								"responce" 	=> "roomlist",
+								"body"		=> $this->Rooms
+							)
+						)
+					);
+				}
+
+
+				break;
+
+			case 'AbaloneServer':
+				$user_id = $data->user_id;
+				$AbaloneServer_msg = $data->AbaloneServer_msg;
+
+				$array_msg = preg_split ('/-/',$AbaloneServer_msg,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
 
 				$t0 = microtime(True);
 				
@@ -62,15 +83,12 @@ class Chat implements MessageComponentInterface {
 		$conn->close();
 	}
 }
-
-	//create the server object
+//create the server object
 $server = IoServer::factory(
-	new HttpServer(new WsServer(new Chat())),
+	new HttpServer(new WsServer(new AbaloneServer())),
 	5002
 );
 
 	//start the websocket
 $server->run();
-
-
 ?>

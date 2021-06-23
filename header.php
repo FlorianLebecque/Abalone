@@ -8,9 +8,9 @@
     
     <div class="nav justify-contend-start">
         <?php
-            if($crtl->user != null){
+            if($ctrl->user != null){
         ?>
-            <p><?php echo $crtl->user->name."#".$crtl->user->id ?></p>
+            <p><?php echo $ctrl->user->name."#".$ctrl->user->id ?></p>
         <?php
             }else{
         ?>
@@ -23,7 +23,7 @@
     <div class="nav justify-contend-end">
 
         <?php
-            if($crtl->user != null){
+            if($ctrl->user != null){
         ?>
             <a class="btn" href="index.php?a=logoff">Exit</a>
         <?php

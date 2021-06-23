@@ -18,10 +18,19 @@ body{
     flex-direction: column;
 }
 
-h1{
+h1,h2{
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     margin-bottom: 0;
+    background: linear-gradient(
+        to right, 
+        var(--accent), 
+        var(--border)
+    );
+    width: fit-content;
+    background-clip : text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 a{
@@ -30,4 +39,18 @@ a{
 }
 a:hover{
     color:var(--accent);
+}
+
+hr{
+    background: linear-gradient(
+        to right, 
+        var(--secondary), 
+        var(--border)
+    );
+}
+
+.main{
+    padding: 1rem;
+    border-radius: 0.3rem;
+    background-color: var(--main);
 }

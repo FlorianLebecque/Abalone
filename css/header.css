@@ -6,6 +6,7 @@ header{
     box-shadow: 0.5em 0.7em 1em -0.7em var(--shadowColor);
     padding-left: 1rem;
     padding-right: 1rem;
+    margin-bottom: 5rem;
 }
 
 .navbar{

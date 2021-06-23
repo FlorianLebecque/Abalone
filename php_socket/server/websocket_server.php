@@ -7,7 +7,9 @@ use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 require_once '../vendor/autoload.php';
+require_once '../room.php';
 
+require_once '../../backend/class/user.php';
 
 
 
@@ -15,11 +17,22 @@ class AbaloneServer implements MessageComponentInterface {
 	protected $clients;
 	protected $users;
 
-	protected $Rooms = [];
+	
 
 
 	public function __construct() {
 		$this->clients = new \SplObjectStorage;
+
+		$room0 = new room(new user("gello"),"");
+		$room1 = new room(new user("Mika"),"");
+		$room2 = new room(new user("GHE"),"");
+
+		$this->Rooms = array(
+			$room0,
+			$room1,
+			$room2,
+		);
+
 		echo "Socket created \n";
 	}
 
@@ -45,7 +58,7 @@ class AbaloneServer implements MessageComponentInterface {
 		switch ($data->type) {
 
 			case 'request':
-
+				
 				if($data->msg == "roomlist"){
 					$from->send(
 						json_encode(

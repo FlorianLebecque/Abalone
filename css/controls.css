@@ -14,7 +14,7 @@
 .btn:hover {
     background: var(--secondary);
     text-decoration: none;
-    color:white
+    color:var(--accent) !important;
 }
 
 .inpt{
@@ -38,4 +38,16 @@
     text-decoration: none;
     transition: border-bottom 0.1s linear 0.1s
     
+}
+
+table{
+    background: linear-gradient(
+        to right, 
+        var(--accent), 
+        var(--border)
+    );
+    width: fit-content;
+    background-clip : text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

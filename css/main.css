@@ -56,3 +56,8 @@ hr{
     border-radius: 0.3rem;
     background-color: var(--background);
 }
+
+#gamearea{
+    width: 1280px;
+    height: 720px;
+}

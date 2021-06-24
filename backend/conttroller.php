@@ -35,10 +35,15 @@
                         
                         break;
                     
-                    case "logoff":{
+                    case "logoff":
                         session_destroy();
                         header("Location: index.php");
-                    }
+                        break;
+
+                    case "join":
+                        header("Location: index.php?p=game");
+                        break;
+                    
 
                 }
 
@@ -58,6 +63,10 @@
                     case "login":
                         $this->page = "login";
                         break;
+
+                    case "game":
+                        $this->page = "game";
+                        break;
                     default:
                         $this->page = "serverlist";
                 }
@@ -69,6 +78,9 @@
 
         private function _display(){
             switch($this->page){
+                case "game":
+                    include("page/game.php");
+                    break;
                 case "serverlist":
                     include("page\server_list.php");
                     break;

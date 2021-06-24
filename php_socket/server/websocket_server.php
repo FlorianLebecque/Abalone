@@ -7,8 +7,8 @@ use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 require_once '../vendor/autoload.php';
-require_once '../room.php';
 
+require_once '../../backend/class/room.php';
 require_once '../../backend/class/user.php';
 
 

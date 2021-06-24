@@ -2,7 +2,7 @@
     border-radius: 0.2em;
     font-family: Arial;
 
-    color:var(--accent);
+    color:var(--texteColor);
     font-size: 1em;
     
     padding: 0.5em 1em 0.5em 1em;
@@ -15,15 +15,16 @@
     background: var(--secondary);
     text-decoration: none;
     color:var(--accent) !important;
+    -webkit-text-fill-color: var(--accent);
 }
 
 .inpt{
     border-radius: 0.2em;
     font-family: Arial;
-    color: var(--accent);
+    color: var(--main);
     border: none;
     font-size: 1em;
-    background:var(--main);
+    background:var(--background);
     border-bottom: 0.15em solid var(--accent);
     vertical-align: middle;
     padding: 0.5em 1em 0.5em 1em;
@@ -40,11 +41,11 @@
 
 table{
 
-    color: var(--accent) !important;
+    color: var(--main) !important;
     background: linear-gradient(
         to right, 
-        var(--accent), 
-        var(--border)
+        var(--secondary), 
+        var(--main)
     );
     width: fit-content;
     background-clip : text;

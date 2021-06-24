@@ -6,16 +6,18 @@
     --border    : #F6C8CC;
     --accent    : #EBF5F7;
 
-    --texteColor:#3a3a3a;
-    --shadowColor : #8f8f8f;
+    --background    : white;
+    --texteColor    : #3a3a3a;
+    --shadowColor   : #00000085;
 }
 
 body{
-    color:var(--accent);
+    color:var(--texteColor);
     width: 100%;
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: var(--background);
 }
 
 h1,h2{
@@ -24,8 +26,8 @@ h1,h2{
     margin-bottom: 0;
     background: linear-gradient(
         to right, 
-        var(--accent), 
-        var(--border)
+        var(--main), 
+        var(--secondary)
     );
     width: fit-content;
     background-clip : text;
@@ -34,11 +36,11 @@ h1,h2{
 }
 
 a{
-    color:var(--accent);
+    color:var(--texteColor);
     text-decoration: none;
 }
 a:hover{
-    color:var(--accent);
+    color:var(--texteColor);
 }
 
 hr{
@@ -52,5 +54,5 @@ hr{
 .main{
     padding: 1rem;
     border-radius: 0.3rem;
-    background-color: var(--main);
+    background-color: var(--background);
 }

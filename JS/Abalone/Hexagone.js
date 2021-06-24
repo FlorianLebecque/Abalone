@@ -20,9 +20,6 @@ class hexagone {
   // test si la souris est dans l'hexagone
   hovering() {
 
-    let P = 3* this.len;  //perimetre
-    let air = round(sqrt(P/2*(P/2-this.len)*(P/2-this.len)*(P/2-this.len)));  //calcule de l'aire avec formule de héron
-
     //subdivision d'un triangle en 3, si la somme de l'aire des trois est egale a celle du grand alors la souris est dans le triangle
 
     //point du centre
@@ -71,28 +68,32 @@ class hexagone {
 
     //definit la couleur de l'hexagone
     let colorX = map(this.x, 0, width, 100, 150);  //map le x qui va entre 0 et la largeur a entre 200 et 255
-    let colorY = map(this.y, 0, height, 100, 150);
+    let colorY = map(this.y, 0, height, 120, 150);
+
+    let cr = map(this.x,0,width,235,246);
+    let cg = map(this.x,0,width,245,220);
+    let cb = map(this.x,0,width,247,224);
 
     switch(this.team) {
     case 0 : 
-      fill(colorY/10, colorX, colorY,255);  //petit dégrader de bleu
+      fill(cr, cg, cb,255);  //petit dégrader de bleu
       break;
     case 1 : 
-      fill(255, 255, 255,255);
+      fill(91, 176, 186,255);
       break;
     case 2 : 
-      fill(0, 0, 0,255);
+      fill(193, 91, 120,255);
       break;
     }
 
     if (this.is_hover) {
-      let r = map(deg, 1, 3, 50, 150);
-      let g = map(deg, 1, 3, 200, 255);
-      let b = map(deg, 1, 3, 50, 150);
+      let r = map(deg, 1, 3, 200, 246);
+      let g = map(deg, 1, 3, 150, 200);
+      let b = map(deg, 1, 3, 150, 204);
       fill(r, g, b);
     }
     if (this.clicked) {
-      fill(0, 200, 0,255);
+      fill(246, 200, 204,255);
     }
 
     //dessine l'hexagone

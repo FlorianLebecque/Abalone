@@ -70,7 +70,6 @@ class AbaloneServer implements MessageComponentInterface {
 					);
 				}
 
-
 				break;
 
 			case 'AbaloneServer':

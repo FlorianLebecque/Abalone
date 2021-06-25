@@ -37,7 +37,7 @@ let state = 1;   //0 menu  1 jeu   2 fin du jeu  3 about
 
 function setup() {
   //size(1680,1050);
-  var canvas = createCanvas(container.clientWidth, container.clientHeight, P2D);
+  var canvas = createCanvas(container.clientWidth, container.clientWidth*(9/16), P2D);
   canvas.parent('gamearea')
   smooth(8);
   frameRate(60);
@@ -121,22 +121,17 @@ function Game() {
   fill(58, 58, 58,255);
   textAlign(LEFT);
   textSize(max_len*0.05);
-  text("score :", hex[4][8].x+2*hex[0][0].len, hex[4][8].y+max_len*0.05);
+  text("SCORE", 7*width/8, (height/2)-(max_len*0.05));
   textSize(max_len*0.03);
-  text("Blanc : "+score[0], hex[4][8].x+2*hex[0][0].len, hex[4][8].y+3*max_len*0.03);
-  text("Noir : "+score[1], hex[4][8].x+2*hex[0][0].len, hex[4][8].y+5*max_len*0.03);
+  text("Blanc : " + score[0], 7*width/8, (height/2));
+  text("Noir  : " + score[1], 7*width/8, (height/2) + (max_len*0.03));
 }
 
 function endGame() {
   fill(58, 58, 58,255); 
-  let tSize = round(max_len*0.3);
-  textAlign(CENTER);
-  textSize(tSize);
-  text("Abalone", width/2, tSize);  
 
-  line(0, tSize+15, width, tSize+15);
 
-  tSize = round(max_len*0.05);
+  let tSize = round(max_len*0.05);
   textSize(tSize);
   textAlign(LEFT);
   text("Le score : ", width*0.2, height*0.35, width*0.6, height*0.1);
@@ -152,9 +147,9 @@ function endGame() {
   text("VICTOIRE", width/2, height/2);
 
   if (score[0]>score[1]) {
-    text("BLANC", width/2, 2*height/3);
+    text("Jouer 1", width/2, 2*height/3);
   } else {
-    text("NOIR", width/2, 2*height/3);
+    text("jouer 2", width/2, 2*height/3);
   }
 
 }

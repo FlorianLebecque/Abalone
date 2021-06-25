@@ -3,8 +3,6 @@ jsCtrl.GetRoomsList();
 
 function gotMyList(params){
 
-    console.log(typeof(params))
-
     let ht = "";
 
     Object.values(params).forEach( element=> {
@@ -17,12 +15,13 @@ function gotMyList(params){
             row += "<td>v</td>";
         }
 
-        row += "<td>"+element.player[0].name+"</td>";
-
-        if(element.player.count == 2){
-            row += "<td>"+element.player[1]+"</td>";
-            row += "<td>Full></td>";
+        if(Object.values(element.players).length == 2){
+            Object.values(element.players).forEach(player =>{
+                row += "<td>"+players.name+"</td>";
+            });
+            
         }else{
+            row += "<td>"+Object.values(element.players)[0].name+"</td>";
             row += "<td>Free</td>";
             row += "<td><a class='btn' href='index.php?a=join&id="+element.id+"'>Join</a></td>";
         }

@@ -4,6 +4,10 @@ class hexagone {
   constructor(_x,  _y, _l) {
     this.x = _x;  //position x
     this.y = _y;  //position y
+
+    this.i = 0;
+    this.j = 0;
+
     //position du centre
     this.len = _l;//longeur de l'hexagone régulier
     
@@ -67,9 +71,6 @@ class hexagone {
   show() {
 
     //definit la couleur de l'hexagone
-    let colorX = map(this.x, 0, width, 100, 150);  //map le x qui va entre 0 et la largeur a entre 200 et 255
-    let colorY = map(this.y, 0, height, 120, 150);
-
     let cr = map(this.x,0,width,235,246);
     let cg = map(this.x,0,width,245,220);
     let cb = map(this.x,0,width,247,224);
@@ -93,7 +94,7 @@ class hexagone {
       fill(r, g, b);
     }
     if (this.clicked) {
-      fill(246, 200, 204,255);
+      fill(235, 245, 247,0);
     }
 
     //dessine l'hexagone

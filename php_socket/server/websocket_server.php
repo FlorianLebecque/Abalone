@@ -17,15 +17,14 @@ class AbaloneServer implements MessageComponentInterface {
 	protected $clients;
 	protected $users;
 
-	
-
-
 	public function __construct() {
 		$this->clients = new \SplObjectStorage;
 
 		$room0 = new room(new user("gello"),"");
 		$room1 = new room(new user("Mika"),"");
 		$room2 = new room(new user("GHE"),"");
+
+		$this->players = array();
 
 		$this->Rooms = array(
 			$room0->id => $room0,
@@ -38,14 +37,33 @@ class AbaloneServer implements MessageComponentInterface {
 
 	public function onOpen(ConnectionInterface $conn) {
 		$this->clients->attach($conn);
-		// $this->users[$conn->resourceId] = $conn;
-		echo "Client connected \n";
+
+		//echo "Client connected \n";
 	}
 
 	public function onClose(ConnectionInterface $conn) {
 		$this->clients->detach($conn);
-		// unset($this->users[$conn->resourceId]);
-		echo "Client disconnected \n";
+
+		foreach($this->Rooms as $roomID => $room ){
+			foreach($this->players as $ressID => $player){
+				if(in_array($player,$room->players)){
+					unset($this->Rooms[$roomID]->players[$player->id]);	//we the player from the room
+
+					echo "Player ".$player->name . " has leaved room ".$roomID."\n";
+
+					if(count($this->Rooms[$roomID]->players) == 0){
+						unset($this->Rooms[$roomID]);
+						echo "Room ".$roomID." has been closed\n";
+					}
+
+					
+				}
+			}
+		}
+
+		unset($this->players[$conn->resourceId]);
+
+		//echo "Client disconnected \n";
 	}
 
 	public function onMessage(ConnectionInterface $from,  $data) {
@@ -53,42 +71,99 @@ class AbaloneServer implements MessageComponentInterface {
 		
 		$data = json_decode($data);
 		
-		print_r($data);
+		//print_r($data);
 		
 		switch ($data->type) {
 
-			case 'request':
-				
-				if($data->msg == "roomlist"){
-					$from->send(
-						json_encode(
-							array(
-								"responce" 	=> "roomlist",
-								"body"		=> $this->Rooms
-							)
-						)
-					);
+			case 'socket' :
+
+				if(isset($data->user)){
+					$userName 	= explode("#",$data->user)[0];
+					$userID 	= explode("#",$data->user)[1];
+					$user = new user($userName);
+					$user->id = $userID;
+
+					
+					$this->players[$from->resourceId] = $user;
 				}
 
 				break;
 
-			case 'AbaloneServer':
-				$user_id = $data->user_id;
-				$AbaloneServer_msg = $data->AbaloneServer_msg;
-
-				$array_msg = preg_split ('/-/',$AbaloneServer_msg,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
-
-				$t0 = microtime(True);
+			case 'request':
 				
-				$t1 = microtime(True);
+				switch($data->msg){
+					case "roomlist":
+						$this->GetRoomList($from);
+						break;
+					case "EnterRoom":
+						$this->EnterRoom($from,$data);
+						break;
 
-				echo $array_msg[0] ." ) ".($t1-$t0)."s\n";
-				
-				// Output
-				$from->send(json_encode(array("type"=>$type,"msg"=>$response_from)));
+				}
 
 				break;
 		}
+	}
+
+	private function GetRoomList($from){
+		$from->send(
+			json_encode(
+				array(
+					"responce" 	=> "roomlist",
+					"body"		=> $this->Rooms
+				)
+			)
+		);
+	}
+
+	private function EnterRoom($from,$data){
+		$roomID = $data->roomid;
+
+		if(isset($this->Rooms[$roomID])){	//check if the room exist
+
+			if(count($this->Rooms[$roomID]->players) < 2) {
+
+				if(isset($this->players[$from->resourceId])){
+					$this->Rooms[$roomID]->players[$this->players[$from->resourceId]->id] = $this->players[$from->resourceId];
+					echo "Player ".$this->players[$from->resourceId]->name." joined room : ".$roomID."\n";
+
+					$from->send(
+						json_encode(
+							array(
+								"responce" 	=> "EnterRoom",
+								"body"		=> $this->Rooms[$roomID]
+							)
+						)
+					);
+
+				}		
+
+			}else{	//the room is full
+				$from->send(
+					json_encode(
+						array(
+							"responce" 	=> "EnterRoom",
+							"body"		=> "full"
+						)
+					)
+				);
+
+				echo "Room ".$roomID." is full \n";
+			}
+
+
+		}else{	//check if the room don't exist
+			$from->send(
+				json_encode(
+					array(
+						"responce" 	=> "EnterRoom",
+						"body"		=> 404
+					)
+				)
+			);
+			echo "Room ".$roomID." don't exist \n";
+		}
+
 	}
 
 	public function onError(ConnectionInterface $conn, \Exception $e) {

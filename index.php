@@ -14,6 +14,8 @@
         <?php
             if($ctrl->user != null){
                 echo "let current_user = '".$ctrl->user->name."#".$ctrl->user->id."';";
+            }else{
+                echo "let current_user = -1;";
             }
         ?>
         let jsCtrl = new controller();

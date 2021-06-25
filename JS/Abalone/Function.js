@@ -28,6 +28,8 @@ function ini_hex(hexa) {
     for (let j = 0; j< maxj; j++) {
       
       hexa[i][j] = new hexagone(lx, ly, l);
+      hexa[i][j].i = i;
+      hexa[i][j].j = j;
 
       //position des billes blanche;
       if ((i<2)||((i==2)&&((j>1)&&(j<5)))) {
@@ -37,7 +39,6 @@ function ini_hex(hexa) {
       if (((i>6))||((i==6)&&((j>1)&&(j<5)))) {
         hexa[i][j].team = 2;
       }
-
 
       lx = lx+nx;
       ly = ly-ny;
@@ -110,6 +111,9 @@ function Selection_hexagone() {
     let maxj = - abs(i-4)+9;
     for (let j = 0; j<maxj; j++) {
       if ((hex[i][j].is_hover)&&(hex[i][j].team==cur_teamPlay)) {//l'hexagone clicker doit faire parti de l'equipe cur_teamPlay
+
+        //hex[i][j] -> hexagone hovered by the mouse
+
         if (sel_hex.length ==0) {//si aucun sélectionner
           hex[i][j].clicked = true;  //permet le changement de couleur
           sel_hex.push(hex[i][j]);    //ajoute a la liste des séléctionné
@@ -166,11 +170,11 @@ function dep_hex() {
           //créé un vecteur entre le premier hexagone sélectionner est le dernier selectionner
           let Vsel = CreateVector2D(sel_hex[0].x, sel_hex[0].y, sel_hex[sel_hex.length-1].x, sel_hex[sel_hex.length-1].y);
 
-          let dep_hex = [];//hexagone ou le deplacement aura lieux;
+          let depHexList = [];//hexagone ou le deplacement aura lieux;
           for (let k = 0; k<sel_hex.length; k++) {
             let Next = GetFromXY(sel_hex[k].x+Vdep.x, sel_hex[k].y+Vdep.y);
             if (Next != null) {  //si l'hexagone est pas en dehors du tableau
-              dep_hex.push(Next);
+              depHexList.push(Next);
             }
           }
 
@@ -195,10 +199,10 @@ function dep_hex() {
                 for (let k = 0; k <sel_hex.length; k++) {
                   sel_hex[k].team = 0;
                 }
-                //chaque hexagone dans dep_hex doivent devenir cur_teamPlay
+                //chaque hexagone dans depHexList doivent devenir cur_teamPlay
                 for (let k = 0; k <sel_hex.length; k++) {
-                  if ((dep_hex[k].team == 0)||(dep_hex[k].team == cur_teamPlay)) {//si il y a pas d'hexagone a pousser
-                    dep_hex[k].team =cur_teamPlay;
+                  if ((depHexList[k].team == 0)||(depHexList[k].team == cur_teamPlay)) {//si il y a pas d'hexagone a pousser
+                    depHexList[k].team =cur_teamPlay;
                   } else {//si il y a des hexagones a pousser
                     let NextOne = GetFromXY(sel_hex[k].x+Vdep.x, sel_hex[k].y+Vdep.y);
                     let LastOne = sel_hex[k].team;
@@ -242,10 +246,10 @@ function dep_hex() {
                 for (let k = 0; k <sel_hex.length; k++) {
                   sel_hex[k].team = 0;
                 }
-                //chaque hexagone dans dep_hex doivent devenir cur_teamPlay
+                //chaque hexagone dans depHexList doivent devenir cur_teamPlay
                 for (let k = 0; k <sel_hex.length; k++) {
-                  if ((dep_hex[k].team == 0)||(dep_hex[k].team == cur_teamPlay)) {//si il y a pas d'hexagone a pousser
-                    dep_hex[k].team = cur_teamPlay;
+                  if ((depHexList[k].team == 0)||(depHexList[k].team == cur_teamPlay)) {//si il y a pas d'hexagone a pousser
+                    depHexList[k].team = cur_teamPlay;
                   }
                 }
                 //change de tour
@@ -255,9 +259,9 @@ function dep_hex() {
             }
           } else {//si il y a que un hexagone
 
-            if (dep_hex[0].team ==0) {
+            if (depHexList[0].team ==0) {
               sel_hex[0].team = 0;
-              dep_hex[0].team = cur_teamPlay;
+              depHexList[0].team = cur_teamPlay;
               cur_teamPlay = - cur_teamPlay + 3;
             }
             emptySelect();

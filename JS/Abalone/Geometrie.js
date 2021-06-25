@@ -12,7 +12,7 @@ class droite { // droite d'équation y = mx+p
     if (this.verti) {  //si verticale
       return this.value;
     }
-    return this.m*this.x+this.p;
+    return this.m*x+this.p;
   }
 }
 //vecteur a 2 dimension
@@ -97,8 +97,5 @@ function test_dist( sx, sy, cx, cy) {
   let l = sqrt(max_len*max_len/(162*(1-cos(2*PI/3))));  
   let lo = round(sqrt(2*l*l-2*l*l*cos(2*PI/3)));  //coté d'un triangle inscrit a un hexagone
 
-  if (dist<=lo) {
-    return true;
-  }
-  return false;
+  return (dist<=lo);
 }

@@ -41,7 +41,15 @@
                         break;
 
                     case "join":
-                        header("Location: index.php?p=game");
+                        if($this->user != null){
+                            if(isset($_GET["id"])){
+                                $id = htmlspecialchars($_GET["id"]);
+                            }
+                            header("Location: index.php?p=game&r=".$id);
+                        }else{
+                            header("Location: index.php?p=login");
+                        }
+                        
                         break;
                     
 

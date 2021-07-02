@@ -12,13 +12,13 @@ class hexagone {
     this.len = _l;//longeur de l'hexagone régulier
     
     this.is_hover = false;
-    this.clicked = false;
-    this.team = 0;
+    this.clicked  = false;
+    this.team     = 0;
     
   }
 
   GetLo() {
-    return sqrt(2*this.len*this.len-2*this.len*this.len*cos(2*PI/3)); //longueur d'un triangle inscri a l'hexagone
+    return sqrt(2 * this.len * this.len - 2 * this.len * this.len * cos(2 * PI/3)); //longueur d'un triangle inscri a l'hexagone
   }
 
   // test si la souris est dans l'hexagone
@@ -36,13 +36,13 @@ class hexagone {
     let xd = this.x + this.len + this.len*sin(PI/6);
     let yd = this.y + this.len*cos(PI/6);
     //point haut droite
-    let x2 = this.x+this.len;
+    let x2 = this.x + this.len;
     let y2 = this.y;
     //point bas droite
     let x3 = xd- this.len*sin(PI/6);
     let y3 = this.y + 2 * this.len * cos(PI/6);
     //point bas gauche
-    let x4 = x3-this.len;
+    let x4 = x3 - this.len;
     let y4 = y3;
 
     //test chaque triangle;
@@ -71,19 +71,19 @@ class hexagone {
   show() {
 
     //definit la couleur de l'hexagone
-    let cr = map(this.x,0,width,235,246);
-    let cg = map(this.x,0,width,245,220);
-    let cb = map(this.x,0,width,247,224);
+    let cr = map(this.x, 0, width, 235, 246);
+    let cg = map(this.x, 0, width, 245, 220);
+    let cb = map(this.x, 0, width, 247, 224);
 
     switch(this.team) {
     case 0 : 
-      fill(cr, cg, cb,255);  //petit dégrader de bleu
+      fill(cr, cg, cb, 255);  //petit dégrader de bleu
       break;
     case 1 : 
-      fill(91, 176, 186,255);
+      fill(91, 176, 186, 255);
       break;
     case 2 : 
-      fill(193, 91, 120,255);
+      fill(193, 91, 120, 255);
       break;
     }
 
@@ -94,7 +94,7 @@ class hexagone {
       fill(r, g, b);
     }
     if (this.clicked) {
-      fill(235, 245, 247,0);
+      fill(171, 169, 183,255);
     }
 
     //dessine l'hexagone
@@ -103,7 +103,7 @@ class hexagone {
     beginShape();   
     for (let i=0; i<6; i++) {
       let nx = this.len * cos(theta*i);
-      let ny = this.len* sin(theta*i);
+      let ny = this.len * sin(theta*i);
 
       lx=lx+nx;
       ly=ly+ny;

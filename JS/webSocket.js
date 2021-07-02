@@ -21,7 +21,6 @@ class webSocketHandler{
                 );
             }
 
-            
         };
 
         this.websocket_server.onerror = function(e) {

@@ -2,7 +2,7 @@ let container = document.querySelector('#gamearea')
 
 var PI = Math.PI;
 
-let hex = [];  //tableau d'hexagone
+let hex     = [];  //tableau d'hexagone
 let sel_hex = [];
 
 //taille du tableau
@@ -46,7 +46,7 @@ function setup() {
   //surface.setSize(1920,1080);
 
   //max_len egale au plus grand coté de l'écran
-  if (height<=width) {
+  if (height <= width) {
     max_len = height;
   } else {
     max_len = width;
@@ -57,11 +57,11 @@ function setup() {
   //initialise le tableau;
   hex = ini_hex(hex);
 
-  let l = sqrt(max_len*max_len/(162*(1-cos(2*PI/3))));  //longueur du coté de l'hexagone
-  let lo = sqrt(2*l*l-2*l*l*cos(2*PI/3));  //longueur d'un des triangles inscrit dans l'hexagone
-  let ny = lo*cos(PI/3); 
+  let l   = sqrt(max_len * max_len / ( 162 * ( 1 - cos( 2 * PI/3))));  //longueur du coté de l'hexagone
+  let lo  = sqrt(2*l*l-2*l*l*cos(2*PI/3));  //longueur d'un des triangles inscrit dans l'hexagone
+  let ny  = lo * cos(PI/3); 
 
-  team_H  = new hexagone(2*ny, height/2-ny, l);
+  team_H  = new hexagone(2 * ny, height/2 - ny, l);
   team_H.team = 1;
 
 }
@@ -77,7 +77,7 @@ function draw() {
   background(255, 255, 255);
   //permet de faire un dégrader clignotant
   deg += sense * 0.1;
-  if ((deg>3)||(deg<1)) {
+  if ((deg > 3)||(deg < 1)) {
     sense = -1 * sense;
   }
   switch(state) {
@@ -92,12 +92,12 @@ function draw() {
 
 //au click de la souris
 function mousePressed() {
-  if (mouseButton==LEFT) {
+  if (mouseButton == LEFT) {
     if(state == 1){
       Selection_hexagone();
     }
   } else if (mouseButton == RIGHT) {
-    if (sel_hex.length>0) {
+    if (sel_hex.length > 0) {
       dep_hex();
     }
   }
@@ -107,7 +107,7 @@ function Game() {
   //affiche les hexagones et test si la souris est dedans
   for (let i = 0; i<max_tab_i; i++) {
     let maxj = - abs(i-4)+9;
-    for (let j = 0; j<maxj; j++) {
+    for (let j = 0; j < maxj; j++) {
       hex[i][j].is_hover = hex[i][j].hovering();
       hex[i][j].show();
     }
@@ -120,36 +120,36 @@ function Game() {
 
   fill(58, 58, 58,255);
   textAlign(LEFT);
-  textSize(max_len*0.05);
-  text("SCORE", 7*width/8, (height/2)-(max_len*0.05));
-  textSize(max_len*0.03);
-  text("Blanc : " + score[0], 7*width/8, (height/2));
-  text("Noir  : " + score[1], 7*width/8, (height/2) + (max_len*0.03));
+  textSize(max_len * 0.05);
+  text("SCORE", 7 * width/8, (height/2) - (max_len * 0.05));
+  textSize(max_len * 0.03);
+  text("Blanc : " + score[0], 7 * width/8, (height/2));
+  text("Noir  : " + score[1], 7 * width/8, (height/2) + (max_len * 0.03));
 }
 
 function endGame() {
-  fill(58, 58, 58,255); 
+  fill(58, 58, 58, 255); 
 
 
-  let tSize = round(max_len*0.05);
+  let tSize = round(max_len * 0.05);
   textSize(tSize);
   textAlign(LEFT);
-  text("Le score : ", width*0.2, height*0.35, width*0.6, height*0.1);
+  text("Le score : ", width * 0.2, height * 0.35, width * 0.6, height * 0.1);
 
-  tSize = round(max_len*0.03);
+  tSize = round(max_len * 0.03);
   textSize(tSize);
-  text("joueur 1 : "+score[0], width*0.2, height*0.41, width*0.6, height*0.1);
-  text("joueur 2 : "+score[1], width*0.2, height*0.45, width*0.6, height*0.1);
+  text("joueur 1 : " + score[0], width * 0.2, height * 0.41, width * 0.6, height * 0.1);
+  text("joueur 2 : " + score[1], width * 0.2, height * 0.45, width * 0.6, height * 0.1);
 
-  tSize = round(max_len*0.08);
+  tSize = round(max_len * 0.08);
   textSize(tSize);
   textAlign(CENTER);
   text("VICTOIRE", width/2, height/2);
 
   if (score[0]>score[1]) {
-    text("Jouer 1", width/2, 2*height/3);
+    text("Jouer 1", width/2, 2 * height/3);
   } else {
-    text("jouer 2", width/2, 2*height/3);
+    text("jouer 2", width/2, 2 * height/3);
   }
 
 }
@@ -159,15 +159,15 @@ function ResetLevel() {
   score[1] = 0;
   cur_teamPlay = 1;
   for (let i = 0; i<max_tab_i; i++) {  //pour chaque ligne;
-    let maxj = - abs(i-4)+9;
-    for (let j = 0; j< maxj; j++) {
+    let maxj = - abs(i - 4) + 9;
+    for (let j = 0; j < maxj; j++) {
       hex[i][j].team = 0;
       //position des billes blanche;
-      if ((i<2)||((i==2)&&((j>1)&&(j<5)))) {
+      if ((i < 2)||((i == 2)&&((j > 1)&&(j < 5)))) {
         hex[i][j].team = 1;
       }
       //position des billes noir;
-      if (((i>6))||((i==6)&&((j>1)&&(j<5)))) {
+      if (((i > 6))||((i == 6)&&((j > 1)&&(j < 5)))) {
         hex[i][j].team = 2;
       }
     }

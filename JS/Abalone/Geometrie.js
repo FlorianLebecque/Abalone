@@ -1,8 +1,8 @@
 //objet droite
 class droite { // droite d'équation y = mx+p
   constructor(m_, p_) {
-    this.m=m_;
-    this.p=p_;
+    this.m = m_;
+    this.p = p_;
 
     this.verti = false;
     this.value = 0;
@@ -19,24 +19,24 @@ class droite { // droite d'équation y = mx+p
 class vector2D {
 
   constructor(x_, y_) {
-    this.x=x_;
-    this.y=y_;
+    this.x = x_;
+    this.y = y_;
   }
 
   getLen() {
-    return sqrt(this.x*this.x+this.y*this.y);
+    return sqrt(this.x * this.x + this.y * this.y);
   }
   get_dir() {
     if (this.x == 0) {
       return 999;
     }
-    return this.y/this.x;
+    return this.y / this.x;
   }
 }
 
 //crée un vecteur a partir de deux point
 function CreateVector2D(x1, y1, x2, y2) {
-  return new vector2D(x2-x1, y2-y1);
+  return new vector2D(x2 - x1, y2 - y1);
 }
 
 function getCosAngle(a, b) {
@@ -46,9 +46,9 @@ function getCosAngle(a, b) {
 //crée une droite a partir de deux point
 function CreateDroite(x1, y1, x2, y2) {
   let m=(y2-y1)/(x2-x1);
-  let p = -m*x1+y1;
+  let p = -m * x1 + y1;
 
-  if (x2-x1==0) {  //si verticale
+  if (x2 - x1==0) {  //si verticale
     let d = new droite(m, p);
     d.verti = true;
     d.value = x1;
@@ -60,8 +60,8 @@ function CreateDroite(x1, y1, x2, y2) {
 
 //test si la souris est dans un triangle
 function Collision_triangle(x1, y1, x2, y2, x3, y3) {
-  let len = sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));  //longueur d'un coté
-  let P = 3*len;
+  let len = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));  //longueur d'un coté
+  let P = 3 * len;
   let A = round(sqrt(P/2*(P/2-len)*(P/2-len)*(P/2-len)));//A  = l'aire du triangle
 
   let l1 = len;

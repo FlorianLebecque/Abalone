@@ -2,12 +2,12 @@
 function ini_hex(hexa) {
   frameRate(0);
   //pour que la taille prenne tout l'écran
-  let l = sqrt(max_len*max_len/(162*(1-cos(2*PI/3))));  //longueur du coté de l'hexagone
+  let l  = sqrt(max_len*max_len/(162*(1-cos(2*PI/3))));  //longueur du coté de l'hexagone
   let ny = sqrt(2*l*l-2*l*l*cos(2*PI/3))*cos(PI/3); 
   let nx = sqrt(2*l*l-2*l*l*cos(2*PI/3))*sin(PI/3); 
 
   //position de l'hexagone de dépard
-  let alpha =4*l + (5* ( 2*sqrt(l*l-ny*ny)+l));
+  let alpha = 4*l + (5* ( 2*sqrt(l*l-ny*ny)+l));
   let x = (width-alpha)/2 + sqrt(l*l-ny*ny);  
   let y = 4*ny;  //centrer verticalement
 
@@ -64,7 +64,7 @@ function inArrayList(List,  hexa) {
 
 //efface la selection
 function emptySelect() {
-  for (let k = 0; k<sel_hex.length; k++) {
+  for (let k = 0; k < sel_hex.length; k++) {
     sel_hex[k].clicked = false;
   }
   sel_hex = [];
@@ -74,12 +74,13 @@ function emptySelect() {
 function GetFromXY( x,  y) {
 
   let lo = hex[0][0].GetLo();
-  let ny = lo*cos(PI/3); 
-  let nx = lo*sin(PI/3);
+  let ny = lo * cos(PI/3); 
+  let nx = lo * sin(PI/3);
 
   //position du premier hexagone
   let x0 = hex[0][0].x;
   let y0 = hex[0][0].y;
+
   //droite de séparation du haut et du bas
   let d = CreateDroite(hex[4][0].x, hex[4][0].y, hex[4][1].x, hex[4][1].y);
 
@@ -105,6 +106,7 @@ function GetFromXY( x,  y) {
     return null;
   }
 }
+
 //test si on a cliquer sur un hexagone
 function Selection_hexagone() {
   for (let i = 0; i<max_tab_i; i++) {

@@ -75,7 +75,7 @@ class AbaloneServer implements MessageComponentInterface {
 					$userID 	= explode("#",$data->user)[1];
 					$user = new user($userName);
 					$user->id = $userID;
-
+					$user->conn = $from;
 					
 					$this->players[$from->remoteAddress] = $user;
 				}
@@ -123,6 +123,16 @@ class AbaloneServer implements MessageComponentInterface {
 						//we need to informe the first player that someone joined
 					if(count($this->Rooms[$roomID]->players) == 1){
 
+						foreach($this->Rooms[$roomID]->players as $ipAdd => $player){
+							$player->conn->send(
+								json_encode(
+									array(
+										"responce"	=> "PlayerJoined",
+										"body"		=> $this->players[$from->remoteAddress]
+									)
+								)
+							);
+						}
 					}
 
 						//add the player to the room

@@ -46,10 +46,11 @@ function RoomsRespond(params){
 }
 
 
-function PlayerJoind(params){
-
+function PlayerJoined(params){
+    player_2 = params.name;
+    state = 1;
 }
 
 function PlayerPlayed(params){
-    
+
 }

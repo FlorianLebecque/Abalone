@@ -15,6 +15,9 @@ class controller{
                 case "CreateRoom":
                     roomCreated(params.body);
                     break;
+                case "PlayerJoined":
+                    PlayerJoined(params.body);
+                    break;
             }
         }
 

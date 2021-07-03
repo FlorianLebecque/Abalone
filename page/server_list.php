@@ -3,7 +3,7 @@
 ?>
 
 <div class="table-responsive">
-    <h2>Rooms</h2>
+    <h2>Rooms <a class="btn" href="index.php?p=create">+</a><a class="btn"><i class="glyphicon glyphicon-refresh" style="font-size:40px"></i></a></h2>
     <hr>
     <table class="table table-hover">
         <thead>

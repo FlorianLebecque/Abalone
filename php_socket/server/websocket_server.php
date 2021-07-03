@@ -20,17 +20,10 @@ class AbaloneServer implements MessageComponentInterface {
 	public function __construct() {
 		$this->clients = new \SplObjectStorage;
 
-		$room0 = new room(new user("gello"),"");
-		$room1 = new room(new user("Mika"),"");
-		$room2 = new room(new user("GHE"),"");
+
 
 		$this->players = array();
-
-		$this->Rooms = array(
-			$room0->id => $room0,
-			$room1->id => $room1,
-			$room2->id => $room2,
-		);
+		$this->Rooms = array();
 
 		echo "Socket created \n";
 	}
@@ -51,9 +44,11 @@ class AbaloneServer implements MessageComponentInterface {
 
 					echo "Player ".$player->name . " has leaved room ".$roomID."\n";
 
-					if(count($this->Rooms[$roomID]->players) == 0){
+					if(count($this->Rooms[$roomID]->players) == 0){			//we can close the room
 						unset($this->Rooms[$roomID]);
-						echo "Room ".$roomID." has been closed\n";
+						echo "Room ".$roomID." has been closed\n";	
+					}else if(count($this->Rooms[$roomID]->players) == 1){	//we need to informe the other player
+
 					}
 
 					
@@ -96,7 +91,9 @@ class AbaloneServer implements MessageComponentInterface {
 					case "EnterRoom":
 						$this->EnterRoom($from,$data);
 						break;
-
+					case "CreateRoom":
+						$this->CreateRoom($from);
+						break;
 				}
 
 				break;
@@ -122,6 +119,13 @@ class AbaloneServer implements MessageComponentInterface {
 			if(count($this->Rooms[$roomID]->players) < 2) {
 
 				if(isset($this->players[$from->remoteAddress])){
+
+						//we need to informe the first player that someone joined
+					if(count($this->Rooms[$roomID]->players) == 1){
+
+					}
+
+						//add the player to the room
 					$this->Rooms[$roomID]->players[$this->players[$from->remoteAddress]->id] = $this->players[$from->remoteAddress];
 					echo "Player ".$this->players[$from->remoteAddress]->name." joined room : ".$roomID."\n";
 
@@ -162,6 +166,20 @@ class AbaloneServer implements MessageComponentInterface {
 			echo "Room ".$roomID." don't exist \n";
 		}
 
+	}
+
+	private function CreateRoom($from){
+		$room = new room("");
+		$this->Rooms[$room->id] = $room;
+
+		$from->send(
+			json_encode(
+				array(
+					"responce" 	=> "CreateRoom",
+					"body"		=> $room->id
+				)
+			)
+		);
 	}
 
 	public function onError(ConnectionInterface $conn, \Exception $e) {

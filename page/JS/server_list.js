@@ -21,7 +21,12 @@ function gotMyList(params){
             });
             row += "<td><a class='btn'>Full</a></td>";
         }else{
-            row += "<td>"+Object.values(element.players)[0].name+"</td>";
+            if(Object.values(element.players)[0] != null){
+                row += "<td>"+Object.values(element.players)[0].name+"</td>";
+            }else{
+                row += "<td>Free</td>";
+            }
+            
             row += "<td>Free</td>";
             row += "<td><a class='btn' href='index.php?a=join&id="+element.id+"'>Join</a></td>";
         }

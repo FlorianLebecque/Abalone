@@ -37,8 +37,6 @@ class AbaloneServer implements MessageComponentInterface {
 
 	public function onOpen(ConnectionInterface $conn) {
 		$this->clients->attach($conn);
-
-		//echo "Client connected \n";
 	}
 
 	public function onClose(ConnectionInterface $conn) {
@@ -46,7 +44,9 @@ class AbaloneServer implements MessageComponentInterface {
 
 		foreach($this->Rooms as $roomID => $room ){
 			foreach($this->players as $ressID => $player){
-				if(in_array($player,$room->players)){
+				if((in_array($player,$room->players))&&($ressID == $conn->remoteAddress)){
+
+
 					unset($this->Rooms[$roomID]->players[$player->id]);	//we the player from the room
 
 					echo "Player ".$player->name . " has leaved room ".$roomID."\n";
@@ -61,13 +61,11 @@ class AbaloneServer implements MessageComponentInterface {
 			}
 		}
 
-		unset($this->players[$conn->resourceId]);
-
-		//echo "Client disconnected \n";
+		unset($this->players[$conn->remoteAddress]);
 	}
 
 	public function onMessage(ConnectionInterface $from,  $data) {
-		//$from_id = $from->resourceId;
+		//$from_id = $from->remoteAddress;
 		
 		$data = json_decode($data);
 		
@@ -84,7 +82,7 @@ class AbaloneServer implements MessageComponentInterface {
 					$user->id = $userID;
 
 					
-					$this->players[$from->resourceId] = $user;
+					$this->players[$from->remoteAddress] = $user;
 				}
 
 				break;
@@ -123,9 +121,9 @@ class AbaloneServer implements MessageComponentInterface {
 
 			if(count($this->Rooms[$roomID]->players) < 2) {
 
-				if(isset($this->players[$from->resourceId])){
-					$this->Rooms[$roomID]->players[$this->players[$from->resourceId]->id] = $this->players[$from->resourceId];
-					echo "Player ".$this->players[$from->resourceId]->name." joined room : ".$roomID."\n";
+				if(isset($this->players[$from->remoteAddress])){
+					$this->Rooms[$roomID]->players[$this->players[$from->remoteAddress]->id] = $this->players[$from->remoteAddress];
+					echo "Player ".$this->players[$from->remoteAddress]->name." joined room : ".$roomID."\n";
 
 					$from->send(
 						json_encode(

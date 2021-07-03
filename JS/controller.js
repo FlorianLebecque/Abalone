@@ -18,6 +18,11 @@ class controller{
                 case "PlayerJoined":
                     PlayerJoined(params.body);
                     break;
+
+                case "PlayerLeaved":
+                    PlayerLeaved(params.body);
+                    break;
+                
             }
         }
 

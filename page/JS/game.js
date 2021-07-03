@@ -50,10 +50,15 @@ function RoomsRespond(params){
 
 }
 
-
 function PlayerJoined(params){
     player_2 = params.name;
     state = 1;
+}
+
+function PlayerLeaved(params){
+    player_2 = "Waiting for new player"
+    player_1 = current_user.split("#")[0];
+    your_turn = 1;
 }
 
 function PlayerPlayed(params){

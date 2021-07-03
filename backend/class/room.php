@@ -6,6 +6,7 @@
             $this->players  = array();
             $this->table    = array();
             $this->turn     = 1;    //player 1 or player 2
+            $this->HasPlayed    = false;
         }
         
     }

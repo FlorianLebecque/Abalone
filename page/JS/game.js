@@ -16,6 +16,11 @@ let state = 1;
 
 function RoomsRespond(params){
     if(params == 404 || params == "full"){
+        alert("The room is full or hasn't been found");
+        window.location = "index.php";
+    }
+    if(params == "started"){
+        alert("The room has already stated");
         window.location = "index.php";
     }
 

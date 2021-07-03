@@ -48,7 +48,16 @@ class AbaloneServer implements MessageComponentInterface {
 						unset($this->Rooms[$roomID]);
 						echo "Room ".$roomID." has been closed\n";	
 					}else if(count($this->Rooms[$roomID]->players) == 1){	//we need to informe the other player
-
+						foreach($this->Rooms[$roomID]->players as $ipAdd => $plyr){
+							$plyr->conn->send(
+								json_encode(
+									array(
+										"responce"	=> "PlayerLeaved",
+										"body"		=> $player
+									)
+								)
+							);
+						}
 					}
 
 					
@@ -117,6 +126,18 @@ class AbaloneServer implements MessageComponentInterface {
 		if(isset($this->Rooms[$roomID])){	//check if the room exist
 
 			if(count($this->Rooms[$roomID]->players) < 2) {
+
+				if($this->Rooms[$roomID]->HasPlayed){	//the game has already been started
+					$from->send(
+						json_encode(
+							array(
+								"responce" 	=> "EnterRoom",
+								"body"		=> "started"
+							)
+						)
+					);
+					return;
+				}
 
 				if(isset($this->players[$from->remoteAddress])){
 

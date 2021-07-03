@@ -31,7 +31,7 @@ let BtMenu;
 let BtAbout; 
 
 //etat dans lequel se trouve le jeux  
-let state = 1;   //0 menu  1 jeu   2 fin du jeu  3 about
+//let state = 1;   //0 menu  1 jeu   2 fin du jeu  3 about
 
 
 
@@ -81,6 +81,9 @@ function draw() {
     sense = -1 * sense;
   }
   switch(state) {
+    case -1:
+      Wait();
+      break;
     case 1:  
       Game();
       break;
@@ -153,6 +156,16 @@ function endGame() {
   } else {
     text("jouer 2", width/2, 2 * height/3);
   }
+
+}
+
+function Wait() {
+  fill(58, 58, 58, 255); 
+
+  let tSize = round(max_len * 0.05);
+  textSize(tSize);
+  textAlign(LEFT);
+  text("Waiting player two", width * 0.2, height * 0.35, width * 0.6, height * 0.1);
 
 }
 

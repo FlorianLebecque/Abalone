@@ -12,6 +12,7 @@ let player_2 = "red"
 
 let cur_game = [];
 let your_turn = 1;
+let state = 1;
 
 function RoomsRespond(params){
     if(params == 404 || params == "full"){
@@ -31,10 +32,15 @@ function RoomsRespond(params){
     });
 
     cur_game = params;
-    
+
     if(player_1 == current_user.split("#")[0]){
         your_turn = 1
     }else{
         your_turn = 2
     }
+
+    if(Object.keys(cur_game.players).length < 2){
+        state = -1;
+    }
+
 }

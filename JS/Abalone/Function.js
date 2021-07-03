@@ -215,7 +215,7 @@ function dep_hex() {
                       NextOne = GetFromXY(NextOne.x+Vdep.x, NextOne.y+Vdep.y);
                     }
                     if ((NextOne != null)&&(NextOne.team == 0)) {//pour le dernier mouvement
-                      NextOne.team = - cur_teamPlay + 3;
+                      NextOne.team = - cur_teamPlay + 3;                                             
                     } else {//l hexagone sort du plateau
                       score[cur_teamPlay-1] ++;
                       if (score[cur_teamPlay-1]==6) {  //le score max a été atteint
@@ -225,7 +225,13 @@ function dep_hex() {
                   }
                 }
                 //change le tour
-                cur_teamPlay = - cur_teamPlay + 3;
+                cur_teamPlay = - cur_teamPlay + 3;                                                    //team change
+
+
+
+
+
+
               }
 
               emptySelect();
@@ -255,7 +261,13 @@ function dep_hex() {
                   }
                 }
                 //change de tour
-                cur_teamPlay = - cur_teamPlay + 3;
+                cur_teamPlay = - cur_teamPlay + 3;                                                  //team change
+
+
+
+
+
+
               }
               emptySelect();
             }
@@ -264,7 +276,13 @@ function dep_hex() {
             if (depHexList[0].team ==0) {
               sel_hex[0].team = 0;
               depHexList[0].team = cur_teamPlay;
-              cur_teamPlay = - cur_teamPlay + 3;
+              cur_teamPlay = - cur_teamPlay + 3;                                                    //team change
+
+
+
+
+
+              
             }
             emptySelect();
           }

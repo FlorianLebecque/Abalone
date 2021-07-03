@@ -92,13 +92,15 @@ function draw() {
 
 //au click de la souris
 function mousePressed() {
-  if (mouseButton == LEFT) {
-    if(state == 1){
-      Selection_hexagone();
-    }
-  } else if (mouseButton == RIGHT) {
-    if (sel_hex.length > 0) {
-      dep_hex();
+  if(your_turn == cur_teamPlay){
+    if (mouseButton == LEFT) {
+      if(state == 1){
+        Selection_hexagone();
+      }
+    } else if (mouseButton == RIGHT) {
+      if (sel_hex.length > 0) {
+        dep_hex();
+      }
     }
   }
 }
@@ -123,8 +125,8 @@ function Game() {
   textSize(max_len * 0.05);
   text("SCORE", 7 * width/8, (height/2) - (max_len * 0.05));
   textSize(max_len * 0.03);
-  text("Blanc : " + score[0], 7 * width/8, (height/2));
-  text("Noir  : " + score[1], 7 * width/8, (height/2) + (max_len * 0.03));
+  text(player_1 + " : " + score[0], 7 * width/8, (height/2));
+  text(player_2 + " : " + score[1], 7 * width/8, (height/2) + (max_len * 0.03));
 }
 
 function endGame() {

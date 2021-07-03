@@ -17,9 +17,9 @@ function gotMyList(params){
 
         if(Object.values(element.players).length == 2){
             Object.values(element.players).forEach(player =>{
-                row += "<td>"+players.name+"</td>";
+                row += "<td>"+player.name+"</td>";
             });
-            
+            row += "<td><a class='btn'>Full</a></td>";
         }else{
             row += "<td>"+Object.values(element.players)[0].name+"</td>";
             row += "<td>Free</td>";

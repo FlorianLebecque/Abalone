@@ -165,7 +165,7 @@ function Wait() {
   let tSize = round(max_len * 0.05);
   textSize(tSize);
   textAlign(LEFT);
-  text("Waiting player two", width * 0.2, height * 0.35, width * 0.6, height * 0.1);
+  text("Waiting for player two", width * 0.2, height * 0.35, width * 0.6, height * 0.1);
 
 }
 

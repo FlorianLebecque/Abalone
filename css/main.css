@@ -21,6 +21,9 @@ body{
 }
 
 h1,h2{
+    text-align: justify;
+    vertical-align: middle;
+    align-items: center;
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     margin-bottom: 0;
@@ -55,6 +58,10 @@ hr{
     padding: 1rem;
     border-radius: 0.3rem;
     background-color: var(--background);
+}
+
+nav div p{
+    margin: 0;
 }
 
 #gamearea{

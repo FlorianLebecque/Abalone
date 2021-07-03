@@ -44,3 +44,12 @@ function RoomsRespond(params){
     }
 
 }
+
+
+function PlayerJoind(params){
+
+}
+
+function PlayerPlayed(params){
+    
+}

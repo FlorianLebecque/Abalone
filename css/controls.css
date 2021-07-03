@@ -18,6 +18,10 @@
     -webkit-text-fill-color: var(--accent);
 }
 
+.btnSvg:hover{
+    fill:var(--accent);
+}
+
 .inpt{
     border-radius: 0.2em;
     font-family: Arial;

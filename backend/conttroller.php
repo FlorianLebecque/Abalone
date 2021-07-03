@@ -75,6 +75,10 @@
                     case "game":
                         $this->page = "game";
                         break;
+
+                    case "create":
+                        $this->page = "create";
+                        break;
                     default:
                         $this->page = "serverlist";
                 }
@@ -89,6 +93,9 @@
                 case "game":
                     include("page/game.php");
                     break;
+                case "create":
+                        include("page/create.php");
+                        break;
                 case "serverlist":
                     include("page\server_list.php");
                     break;

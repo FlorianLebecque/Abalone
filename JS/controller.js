@@ -12,7 +12,9 @@ class controller{
                 case "EnterRoom":
                     RoomsRespond(params.body);
                     break;
-                    
+                case "CreateRoom":
+                    roomCreated(params.body);
+                    break;
             }
         }
 
@@ -43,6 +45,15 @@ class controller{
             msg     :   "EnterRoom",
             user    :   current_user,
             roomid  :   id
+        }
+
+        return this.send(data);
+    }
+
+    CreateRoom(){
+        let data = {
+            type    :   "request",
+            msg     :   "CreateRoom"
         }
 
         return this.send(data);

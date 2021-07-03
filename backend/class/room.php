@@ -1,13 +1,12 @@
 <?php
     class room{
-        public function __construct($user_,$psw_) {
+        public function __construct($psw_) {
             $this->id       =  uniqid();
             $this->psw      = $psw_;
-            $this->players  = array(
-                $user_->id => $user_
-            );
+            $this->players  = array();
             $this->table    = array();
             $this->turn     = 1;    //player 1 or player 2
         }
+        
     }
 ?>

@@ -7,7 +7,7 @@
                 $user_->id => $user_
             );
             $this->table    = array();
-            $this->turn     = 0;    //player 0 or player 1
+            $this->turn     = 1;    //player 1 or player 2
         }
     }
 ?>

@@ -23,6 +23,8 @@ class controller{
                     PlayerLeaved(params.body);
                     break;
                 
+                case "PlayerPlayed":
+                    PlayerPlayed(params)
             }
         }
 
@@ -32,7 +34,6 @@ class controller{
 
     send(params) {
         return waitForSocketConnection(this.webSocket.websocket_server, function(){
-            console.log("message sent!!!");
             jsCtrl.webSocket.websocket_server.send(JSON.stringify(params));
         },0);
     }
@@ -67,6 +68,17 @@ class controller{
         return this.send(data);
     }
 
+    Played(int_array,game_id_,turn_){
+        let data = {
+            type        :   "game",
+            gameArray   :   int_array,
+            game_id     :   game_id_,
+            turn        :   turn_,
+        }
+
+        return this.send(data);
+    }
+
 }
 
 function waitForSocketConnection(socket, callback,nbr = 0){
@@ -77,12 +89,10 @@ function waitForSocketConnection(socket, callback,nbr = 0){
     setTimeout(
         function () {
             if (socket.readyState === 1) {
-                console.log("Connection is made")
                 if (callback != null){
                     return callback();
                 }
             } else {
-                console.log("Wait for connection...")
                 waitForSocketConnection(socket, callback,nbr + 1);
             }
 

@@ -106,6 +106,15 @@ class AbaloneServer implements MessageComponentInterface {
 				}
 
 				break;
+
+			case 'game':
+
+				$this->Rooms[$data->game_id]->table = $data->gameArray;
+				$this->Rooms[$data->game_id]->turn  = $data->turn;
+
+				$this->SendToPlayer($data->game_id);
+
+				break;
 		}
 	}
 
@@ -211,6 +220,20 @@ class AbaloneServer implements MessageComponentInterface {
 				)
 			)
 		);
+	}
+
+	private function SendToPlayer($roomID){
+		foreach($this->Rooms[$roomID]->players as $ipAdd => $plyr){
+			$plyr->conn->send(
+				json_encode(
+					array(
+						"responce"	=> 	"PlayerPlayed",
+						"gameArray"	=> 	$this->Rooms[$roomID]->table,
+						"turn"		=>	$this->Rooms[$roomID]->turn
+					)
+				)
+			);
+		}
 	}
 
 	public function onError(ConnectionInterface $conn, \Exception $e) {

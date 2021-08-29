@@ -61,6 +61,42 @@ function PlayerLeaved(params){
     your_turn = 1;
 }
 
-function PlayerPlayed(params){
+function sendGame(hex){
+    jsCtrl.Played(convertHex(hex),game_id,cur_teamPlay)
+}
 
+
+/*
+    Function witch convert
+    the hexagone array into a
+    int array
+*/
+function convertHex(hex){
+    let int_array = [];
+    hex.forEach(row => {
+        let int_row = [];
+        row.forEach(hexa =>{
+            int_row.push(hexa.team);
+        })
+        int_array.push(int_row);
+    })
+
+    return int_array;
+}
+
+function updateHex(gameArray){
+    let i = 0;
+    hex.forEach(row => {
+        let j = 0;
+        row.forEach(hexa =>{
+            hexa.team = gameArray[i][j];
+            j++
+        })
+        i++;
+    })
+}
+
+function PlayerPlayed(params){
+    updateHex(params.gameArray)
+    cur_teamPlay = params.turn
 }

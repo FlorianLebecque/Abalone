@@ -229,7 +229,7 @@ function dep_hex() {
 
 
 
-
+                sendGame(hex);
 
 
               }
@@ -265,7 +265,7 @@ function dep_hex() {
 
 
 
-
+                sendGame(hex);
 
 
               }
@@ -280,7 +280,7 @@ function dep_hex() {
 
 
 
-
+              sendGame(hex);
 
               
             }

@@ -11,14 +11,14 @@
     vertical-align: middle;
 }
 
-.btn:hover {
+.btn:hover, .btn:hover svg {
     background: var(--secondary);
     text-decoration: none;
     color:var(--accent) !important;
     -webkit-text-fill-color: var(--accent);
 }
 
-.btnSvg:hover{
+.btn:hover svg{
     fill:var(--accent);
 }
 
